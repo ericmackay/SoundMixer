@@ -1,13 +1,32 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from "react";
+import { View, FlatList, Text, StyleSheet } from "react-native";
+import { Header } from "react-native-elements";
 
-export default class App extends React.Component {
+import * as util from "./util";
+import Card from "./Card";
+
+const extractKey = ({ id }) => id;
+
+export default class App extends Component {
+  renderItem = ({ item }) => {
+    return <Card {...item} />;
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <View>
+        <Header
+          centerComponent={{
+            text: "SOUNDS",
+            style: { color: "#fff", backgroundColor: "salmon" }
+          }}
+        />
+        <FlatList
+          style={styles.container}
+          data={util.Data}
+          renderItem={this.renderItem}
+          keyExtractor={extractKey}
+        />
       </View>
     );
   }
@@ -15,9 +34,12 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 20,
+    flex: 0
   },
+  row: {
+    padding: 15,
+    marginBottom: 5,
+    backgroundColor: "skyblue"
+  }
 });
