@@ -16,9 +16,11 @@ export default class App extends Component {
     return (
       <View>
         <Header
-          centerComponent={{
-            text: "SOUNDS",
-            style: { color: "#fff", backgroundColor: "salmon" }
+          centerComponent={{ text: "SOUNDS", style: { color: "#fff" } }}
+          rightComponent={{
+            icon: "home",
+            onPress: () => console.log("create link to about page"),
+            color: "#fff"
           }}
         />
         <FlatList
@@ -34,7 +36,6 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 0
   },
   row: {

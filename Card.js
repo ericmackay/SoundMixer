@@ -30,9 +30,9 @@ export default class Card extends Component {
             value={this.state.value}
             onValueChange={value => this.setState({ value })}
             onSlidingStart={this._PlayAudio}
-            minimumValue={0}
-            maximumValue={100}
-            step={1}
+            minimumValue={0.0}
+            maximumValue={1.0}
+            step={0.01}
             thumbTintColor={"salmon"}
           />
 
