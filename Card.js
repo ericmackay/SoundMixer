@@ -3,19 +3,44 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import { Slider } from "react-native-elements";
 
 export default class Card extends Component {
-  state = {
-    value: 0
+  constructor(props) {
+    super(props);
+    this.sound = null;
+    this.state = {
+      haveRecordingPermissions: false,
+      isLoading: false,
+      isPlaybackAllowed: false,
+      muted: false,
+      soundPosition: null,
+      soundDuration: null,
+      recordingDuration: null,
+      shouldPlay: false,
+      isPlaying: false,
+      isRecording: false,
+      fontLoaded: false,
+      shouldCorrectPitch: true,
+      volume: 1.0,
+      rate: 1.0
+    };
+  }
+
+  _checkSound = () => {
+    console.log(this.sound);
   };
 
-  _PlayAudio = async () => {
-    try {
-      const { soundObject, status } = await Expo.Audio.Sound.create(
-        { uri: this.props.audio },
-        { shouldPlay: true }
-      );
-      // Your sound is playing!
-    } catch (error) {
-      // An error occurred!
+  _handlePlaySoundAsync = async () => {
+    await Expo.Audio.setIsEnabledAsync(true);
+    let sound = new Expo.Audio.Sound();
+    await sound.loadAsync({
+      uri: this.props.audio
+    });
+    await sound.playAsync();
+    this.sound = sound;
+  };
+
+  _onVolumeSliderValueChange = value => {
+    if (this.sound != null) {
+      this.sound.setVolumeAsync(value);
     }
   };
 
@@ -29,7 +54,8 @@ export default class Card extends Component {
           <Slider
             value={this.state.value}
             onValueChange={value => this.setState({ value })}
-            onSlidingStart={this._PlayAudio}
+            onSlidingStart={this._handlePlaySoundAsync}
+            onSlidingComplete={this._checkSound}
             minimumValue={0.0}
             maximumValue={1.0}
             step={0.01}
