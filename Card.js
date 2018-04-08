@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity} from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Slider } from "react-native-elements";
 import { Audio } from "expo";
 
@@ -8,60 +8,57 @@ export default class Card extends Component {
     super(props);
     this.sound = null;
     this.state = {
-      haveRecordingPermissions: false,
       isLoading: false,
-      isPlaybackAllowed: false,
       muted: false,
       soundPosition: null,
       soundDuration: null,
-      recordingDuration: null,
       shouldPlay: false,
       isPlaying: false,
-      isRecording: false,
-      fontLoaded: false,
-      shouldCorrectPitch: true,
-      volume: 1.0,
-      rate: 1.0
+      value: 0.0
     };
   }
 
-  _checkSound = () => {
-    console.log('check sound this.sound',this.sound);
-  };
-  _startAudio = () =>{
-    console.log('start audio happening')
-    this.sound.playAsync()
-    this.setState({isPlaying: true})
+  componentDidMount() {
+    this._handleLoadSoundAsync();
   }
-  _stopAudio = () => {
-    console.log('stop audio is pressed')
-    this.sound.stopAsync()
-    this.setState({isPlaying: false})
-  }
-  _onPressChange = () => {
 
-    console.log('image was pressed')
-    if (this.sound !== null){
-    console.log('this is playing', this.state.isPlaying)
-
-    this.state.isPlaying? this._stopAudio() : this._startAudio();
-    }
-  };
-
-  _handlePlaySoundAsync = async () => {
+  _handleLoadSoundAsync = async () => {
     await Audio.setIsEnabledAsync(true);
     let sound = new Audio.Sound();
     await sound.loadAsync({
       uri: this.props.audio
     });
-    await sound.playAsync();
-    this.setState({isPlaying: true})
     this.sound = sound;
   };
 
-  _onVolumeSliderValueChange = value => {
-    if (this.sound != null) {
+  _onPressChange = () => {
+    if (this.sound !== null) {
+      this.state.isPlaying ? this._stopAudio() : this._startAudio(1.0);
+    }
+  };
+
+  _startAudio = value => {
+    if (this.sound !== null) {
+      this.sound.playAsync();
       this.sound.setVolumeAsync(value);
+      this.sound.setIsLoopingAsync(true);
+      this.setState({ isPlaying: true, value: value });
+    }
+  };
+
+  _stopAudio = () => {
+    this.sound.stopAsync();
+    this.setState({
+      isPlaying: false,
+      value: 0.0
+    });
+  };
+
+  _onVolumeSliderValueChange = value => {
+    console.log(value);
+    if (this.sound !== null) {
+      this.sound.setVolumeAsync(value);
+      console.log(this.state.value);
     }
   };
 
@@ -69,23 +66,23 @@ export default class Card extends Component {
     return (
       <View>
         <TouchableOpacity onPress={this._onPressChange}>
-            <Image style={styles.image} source={{ uri: this.props.img }}/>
-          </TouchableOpacity>
+          <Image style={styles.image} source={{ uri: this.props.img }} />
+        </TouchableOpacity>
         <View
           style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
         >
           <Slider
             value={this.state.value}
             onValueChange={value => this.setState({ value })}
-            onSlidingStart={this._handlePlaySoundAsync}
-            // onSlidingComplete={this.state.value < 0.5? this._slideStop: null }
-            minimumValue={0.0}
+            onSlidingStart={value => this._startAudio(value)}
+            onSlidingComplete={value => this._onVolumeSliderValueChange(value)}
+            minimumValue={
+              0.0 // onSlidingComplete={this.state.value < 0.5? this._slideStop: null }
+            }
             maximumValue={1.0}
             step={0.01}
             thumbTintColor={"salmon"}
           />
-
-          <Text>Value: {this.state.value}</Text>
         </View>
       </View>
     );

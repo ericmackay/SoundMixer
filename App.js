@@ -16,7 +16,7 @@ export default class App extends Component {
     return (
       <View>
         <Header
-          centerComponent={{ text: "SOUNDS", style: { color: "#fff" } }}
+          centerComponent={{ text: "/ˈkänˌstrəkt/", style: { color: "#fff" } }}
           rightComponent={{
             icon: "home",
             onPress: () => console.log("create link to about page"),
