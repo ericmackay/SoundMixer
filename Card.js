@@ -55,10 +55,8 @@ export default class Card extends Component {
   };
 
   _onVolumeSliderValueChange = value => {
-    console.log(value);
     if (this.sound !== null) {
       this.sound.setVolumeAsync(value);
-      console.log(this.state.value);
     }
   };
 
@@ -76,9 +74,7 @@ export default class Card extends Component {
             onValueChange={value => this.setState({ value })}
             onSlidingStart={value => this._startAudio(value)}
             onSlidingComplete={value => this._onVolumeSliderValueChange(value)}
-            minimumValue={
-              0.0 // onSlidingComplete={this.state.value < 0.5? this._slideStop: null }
-            }
+            minimumValue={0.0}
             maximumValue={1.0}
             step={0.01}
             thumbTintColor={"salmon"}
