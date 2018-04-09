@@ -4,14 +4,11 @@ import { Header } from "react-native-elements";
 import { StackNavigator } from "react-navigation";
 
 export default class About extends React.Component {
-    static navigationOptions = {
-        title: "About"
-      }
-    
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>About Screen</Text>
+        <Text>About Screen HELLO</Text>
       </View>
     );
   }

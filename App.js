@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, FlatList, Text, StyleSheet } from "react-native";
+import { View, FlatList, Text, StyleSheet, Button } from "react-native";
 import { Header } from "react-native-elements";
 import { StackNavigator } from "react-navigation";
 
@@ -10,10 +10,24 @@ import About from "./About";
 const extractKey = ({ id }) => id;
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: "/ˈkänˌstrəkt/"
-  }
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
 
+    return {
+      title: "/ˈkänˌstrəkt/",
+      headerRight: (
+        <Button onPress={params.goToAbout} title="About" color="#fff" />
+      )
+    };
+  };
+
+  _goToAbout = () => {
+    this.props.navigation.navigate("About");
+  };
+
+  componentWillMount() {
+    this.props.navigation.setParams({ goToAbout: this._goToAbout });
+  }
   renderItem = ({ item }) => {
     return <Card {...item} />;
   };
@@ -21,16 +35,6 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View>
-        <Header
-          centerComponent={{ text: "SOUNDS", style: { color: "#fff" } }}
-          rightComponent={{
-            icon: "home",
-            onPress: () => {
-              this.props.navigation.navigate("About");
-            },
-            color: "#fff"
-          }}
-        />
         <FlatList
           style={styles.container}
           data={util.Data}
@@ -43,6 +47,9 @@ class HomeScreen extends React.Component {
 }
 
 class AboutScreen extends React.Component {
+  static navigationOptions = {
+    title: "About"
+  };
   render() {
     return <About />;
   }
@@ -58,7 +65,13 @@ const RootStack = StackNavigator(
     }
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Home",
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: "#877777"
+      },
+      headerTintColor: "#fff"
+    }
   }
 );
 
@@ -78,3 +91,4 @@ const styles = StyleSheet.create({
     backgroundColor: "skyblue"
   }
 });
+
