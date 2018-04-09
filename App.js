@@ -3,6 +3,7 @@ import { View, FlatList, Text, StyleSheet, Button } from "react-native";
 import { Header } from "react-native-elements";
 import { StackNavigator } from "react-navigation";
 
+
 import * as util from "./util";
 import Card from "./Card";
 import About from "./About";
@@ -83,6 +84,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor:'rgba(126, 213, 111, 0.2)',
     flex: 0
   },
   row: {

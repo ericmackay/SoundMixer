@@ -67,13 +67,13 @@ export default class Card extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
+      >
         <TouchableOpacity onPress={this._onPressChange}>
             <Image style={styles.image} source={{ uri: this.props.img }}/>
           </TouchableOpacity>
-        <View
-          style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
-        >
+          <View style= {styles.overlay}/>
+          
           <Slider
             value={this.state.value}
             onValueChange={value => this.setState({ value })}
@@ -86,8 +86,7 @@ export default class Card extends Component {
           />
 
           <Text>Value: {this.state.value}</Text>
-        </View>
-      </View>
+      </View >
     );
   }
 }
@@ -100,5 +99,9 @@ const styles = StyleSheet.create({
   row: {
     marginBottom: 5,
     backgroundColor: "skyblue"
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(69,85,117,0.7)',
   }
 });
