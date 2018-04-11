@@ -7,9 +7,26 @@ export default class About extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.container}>
         <Text>About Screen HELLO</Text>
+        <View style= {styles.overlay}/>
       </View>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "rgba(126, 213, 111, 0.2)",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+   
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(174,186,167,0.5)',
+  }
+});
+

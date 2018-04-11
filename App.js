@@ -3,7 +3,6 @@ import { View, FlatList, Text, StyleSheet, Button } from "react-native";
 import { Header } from "react-native-elements";
 import { StackNavigator } from "react-navigation";
 
-
 import * as util from "./util";
 import Card from "./Card";
 import About from "./About";
@@ -17,7 +16,7 @@ class HomeScreen extends React.Component {
     return {
       title: "/ˈkänˌstrəkt/",
       headerRight: (
-        <Button onPress={params.goToAbout} title="About" color="#fff" />
+        <Button onPress={params.goToAbout} title="About" color="#E8D194" />
       )
     };
   };
@@ -52,7 +51,7 @@ class AboutScreen extends React.Component {
     title: "About"
   };
   render() {
-    return <About />;
+    return <About styles={styles} />;
   }
 }
 
@@ -69,9 +68,9 @@ const RootStack = StackNavigator(
     initialRouteName: "Home",
     navigationOptions: {
       headerStyle: {
-        backgroundColor: "#877777"
+        backgroundColor: "#042E01"
       },
-      headerTintColor: "#fff"
+      headerTintColor: "#E8D194"
     }
   }
 );
@@ -84,13 +83,11 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:'rgba(126, 213, 111, 0.2)',
+    backgroundColor: "rgba(126, 213, 111, 0.2)",
     flex: 0
   },
   row: {
     padding: 15,
     marginBottom: 5,
-    backgroundColor: "skyblue"
   }
 });
-
