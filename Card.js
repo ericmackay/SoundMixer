@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, TouchableHighlight} from "react-native";
 import { Slider } from "react-native-elements";
 import { Audio } from "expo";
 
@@ -62,25 +62,25 @@ export default class Card extends Component {
 
   render() {
     return (
-      <View>
-        <TouchableOpacity onPress={this._onPressChange}>
-          <Image style={styles.image} source={{ uri: this.props.img }} />
-        </TouchableOpacity>
-        <View
-          style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
-        >
+      <View style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
+      >
+        <TouchableHighlight onPress={this._onPressChange}>
+            <Image style={styles.image} source={{ uri: this.props.img }}/>
+          </TouchableHighlight>
+          <View style= {!this.state.isPlaying && styles.overlay}/>
+          
           <Slider
             value={this.state.value}
             onValueChange={value => this.setState({ value })}
-            onSlidingStart={value => this._startAudio(value)}
-            onSlidingComplete={value => this._onVolumeSliderValueChange(value)}
+            onSlidingStart={this._handlePlaySoundAsync}
             minimumValue={0.0}
             maximumValue={1.0}
             step={0.01}
-            thumbTintColor={"salmon"}
+            thumbTintColor={"#DBADAD"}
           />
-        </View>
-      </View>
+          <Text>Value: {this.state.value}</Text>
+      </View >
+
     );
   }
 }
@@ -93,5 +93,9 @@ const styles = StyleSheet.create({
   row: {
     marginBottom: 5,
     backgroundColor: "skyblue"
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(174,186,167,0.2)',
   }
 });

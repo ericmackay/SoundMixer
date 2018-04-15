@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, FlatList, Text, StyleSheet } from "react-native";
+import { View, FlatList, Text, StyleSheet, Button } from "react-native";
 import { Header } from "react-native-elements";
 import { StackNavigator } from "react-navigation";
 
@@ -10,10 +10,24 @@ import About from "./About";
 const extractKey = ({ id }) => id;
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: "/ˈkänˌstrəkt/"
-  }
+  static navigationOptions = ({ navigation }) => {
+    const params = navigation.state.params || {};
 
+    return {
+      title: "/ˈkänˌstrəkt/",
+      headerRight: (
+        <Button onPress={params.goToAbout} title="About" color="#E8D194" />
+      )
+    };
+  };
+
+  _goToAbout = () => {
+    this.props.navigation.navigate("About");
+  };
+
+  componentWillMount() {
+    this.props.navigation.setParams({ goToAbout: this._goToAbout });
+  }
   renderItem = ({ item }) => {
     return <Card {...item} />;
   };
@@ -43,8 +57,11 @@ class HomeScreen extends React.Component {
 }
 
 class AboutScreen extends React.Component {
+  static navigationOptions = {
+    title: "About"
+  };
   render() {
-    return <About />;
+    return <About styles={styles} />;
   }
 }
 
@@ -58,7 +75,13 @@ const RootStack = StackNavigator(
     }
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Home",
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: "#042E01"
+      },
+      headerTintColor: "#E8D194"
+    }
   }
 );
 
@@ -70,11 +93,11 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "rgba(126, 213, 111, 0.2)",
     flex: 0
   },
   row: {
     padding: 15,
     marginBottom: 5,
-    backgroundColor: "skyblue"
   }
 });
