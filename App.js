@@ -35,6 +35,16 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View>
+        <Header
+          centerComponent={{ text: "/ˈkänˌstrəkt/", style: { color: "#fff" } }}
+          rightComponent={{
+            icon: "home",
+            onPress: () => {
+              this.props.navigation.navigate("About");
+            },
+            color: "#fff"
+          }}
+        />
         <FlatList
           style={styles.container}
           data={util.Data}
