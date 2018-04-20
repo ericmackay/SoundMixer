@@ -10,13 +10,16 @@ import About from "./About";
 const extractKey = ({ id }) => id;
 
 class HomeScreen extends React.Component {
+  componentWillMount() {
+    this.props.navigation.setParams({ goToAbout: this._goToAbout });
+  }
+
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {};
-    console.log(navigation);
     return {
       title: "/ˈkänˌstrəkt/",
       headerRight: (
-        <Button onPress={params.goToAbout} title="/ˈkərənt/ " color="#E8D194" />
+        <Button onPress={params.goToAbout} title="/ˈkərənt/ " color="#F9B0C8" />
       )
     };
   };
@@ -25,10 +28,6 @@ class HomeScreen extends React.Component {
     console.log(this.props);
     this.props.navigation.navigate("About");
   };
-
-  componentWillMount() {
-    this.props.navigation.setParams({ goToAbout: this._goToAbout });
-  }
 
   renderItem = ({ item }) => {
     return <Card {...item} />;
@@ -73,7 +72,7 @@ const RootStack = StackNavigator(
       headerStyle: {
         backgroundColor: "#042E01"
       },
-      headerTintColor: "#E8D194"
+      headerTintColor: "#F9B0C8"
     }
   }
 );

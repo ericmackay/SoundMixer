@@ -68,18 +68,19 @@ export default class Card extends Component {
     }
   };
 
-  //<View style={styles.overlay}/>
-
   render() {
     return (
       <View
-        style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
+        style={[
+          { flex: 0, alignItems: "stretch", justifyContent: "center" },
+          !this.state.isPlaying ? styles.overlay : null
+        ]}
       >
         <TouchableHighlight onPress={this._onPressChange}>
           <Image style={styles.image} source={{ uri: this.props.img }} />
         </TouchableHighlight>
         <Slider
-          style={{ justifyContent: "center" }}
+          style={styles.slider}
           value={this.state.value}
           onValueChange={value => this.setState({ value })}
           onSlidingStart={value => this._startAudio(value)}
@@ -87,7 +88,11 @@ export default class Card extends Component {
           minimumValue={0.0}
           maximumValue={1.0}
           step={0.01}
-          thumbTintColor={"#DBADAD"}
+          thumbTintColor={"#F9B0C8"}
+          trackStyle={{
+            height: 5,
+            borderRadius: 5
+          }}
         />
       </View>
     );
@@ -100,11 +105,15 @@ const styles = StyleSheet.create({
     width: 400
   },
   row: {
-    marginBottom: 5,
-    backgroundColor: "skyblue"
+    marginBottom: 5
   },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    opacity: 0.75,
     backgroundColor: "rgba(174,186,167,0.2)"
+  },
+  slider: {
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "white"
   }
 });
