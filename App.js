@@ -12,7 +12,6 @@ const extractKey = ({ id }) => id;
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {};
-    console.log(navigation);
     return {
       title: "/ˈkänˌstrəkt/",
       headerRight: (
@@ -22,7 +21,6 @@ class HomeScreen extends React.Component {
   };
 
   _goToAbout = () => {
-    console.log(this.props);
     this.props.navigation.navigate("About");
   };
 

@@ -40,7 +40,6 @@ export default class Card extends Component {
 
   _onPressChange = () => {
     if (this.sound !== null) {
-      console.log(this.state.isPlaying);
       this.state.isPlaying ? this._stopAudio() : this._startAudio(1.0);
     }
   };
