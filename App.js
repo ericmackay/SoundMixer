@@ -12,22 +12,24 @@ const extractKey = ({ id }) => id;
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const params = navigation.state.params || {};
-
+    console.log(navigation);
     return {
       title: "/ˈkänˌstrəkt/",
       headerRight: (
-        <Button onPress={params.goToAbout} title="About" color="#E8D194" />
+        <Button onPress={params.goToAbout} title="/ˈkərənt/ " color="#E8D194" />
       )
     };
   };
 
   _goToAbout = () => {
+    console.log(this.props);
     this.props.navigation.navigate("About");
   };
 
   componentWillMount() {
     this.props.navigation.setParams({ goToAbout: this._goToAbout });
   }
+
   renderItem = ({ item }) => {
     return <Card {...item} />;
   };
@@ -35,22 +37,13 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View>
-        <Header
-          centerComponent={{ text: "/ˈkänˌstrəkt/", style: { color: "#fff" } }}
-          rightComponent={{
-            icon: "home",
-            onPress: () => {
-              this.props.navigation.navigate("About");
-            },
-            color: "#fff"
-          }}
-        />
         <FlatList
           style={styles.container}
           data={util.Data}
           renderItem={this.renderItem}
           keyExtractor={extractKey}
         />
+        <View style={styles.row} />
       </View>
     );
   }
@@ -58,7 +51,7 @@ class HomeScreen extends React.Component {
 
 class AboutScreen extends React.Component {
   static navigationOptions = {
-    title: "About"
+    title: "/ˈkərənt/"
   };
   render() {
     return <About styles={styles} />;
@@ -98,6 +91,6 @@ const styles = StyleSheet.create({
   },
   row: {
     padding: 15,
-    marginBottom: 5,
+    marginBottom: 5
   }
 });

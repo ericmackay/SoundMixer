@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity, TouchableHighlight} from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight
+} from "react-native";
 import { Slider } from "react-native-elements";
 import { Audio } from "expo";
 
@@ -33,6 +40,7 @@ export default class Card extends Component {
 
   _onPressChange = () => {
     if (this.sound !== null) {
+      console.log(this.state.isPlaying);
       this.state.isPlaying ? this._stopAudio() : this._startAudio(1.0);
     }
   };
@@ -60,27 +68,28 @@ export default class Card extends Component {
     }
   };
 
+  //<View style={styles.overlay}/>
+
   render() {
     return (
-      <View style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
+      <View
+        style={{ flex: 0, alignItems: "stretch", justifyContent: "center" }}
       >
         <TouchableHighlight onPress={this._onPressChange}>
-            <Image style={styles.image} source={{ uri: this.props.img }}/>
-          </TouchableHighlight>
-          <View style= {!this.state.isPlaying && styles.overlay}/>
-          
-          <Slider
-            value={this.state.value}
-            onValueChange={value => this.setState({ value })}
-            onSlidingStart={this._handlePlaySoundAsync}
-            minimumValue={0.0}
-            maximumValue={1.0}
-            step={0.01}
-            thumbTintColor={"#DBADAD"}
-          />
-          <Text>Value: {this.state.value}</Text>
-      </View >
-
+          <Image style={styles.image} source={{ uri: this.props.img }} />
+        </TouchableHighlight>
+        <Slider
+          style={{ justifyContent: "center" }}
+          value={this.state.value}
+          onValueChange={value => this.setState({ value })}
+          onSlidingStart={value => this._startAudio(value)}
+          onSlidingComplete={value => this._onVolumeSliderValueChange(value)}
+          minimumValue={0.0}
+          maximumValue={1.0}
+          step={0.01}
+          thumbTintColor={"#DBADAD"}
+        />
+      </View>
     );
   }
 }
@@ -96,6 +105,6 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(174,186,167,0.2)',
+    backgroundColor: "rgba(174,186,167,0.2)"
   }
 });

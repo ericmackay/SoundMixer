@@ -8,5 +8,6 @@ export const Data = [
   { id: 4, text: "Sound 5", img: URL + "5.JPG", audio: URL + "5.mp3" },
   { id: 5, text: "Sound 6", img: URL + "6.JPG", audio: URL + "6.mp3" },
   { id: 6, text: "Sound 7", img: URL + "7.JPG", audio: URL + "7.mp3" },
-  { id: 7, text: "Sound 8", img: URL + "8.JPG", audio: URL + "8.mp3" }
+  { id: 7, text: "Sound 8", img: URL + "8.JPG", audio: URL + "8.mp3" },
+  { id: 8, text: "Sound 9", img: URL + "9.jpg", audio: URL + "9.mp3" }
 ];

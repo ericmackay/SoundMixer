@@ -4,17 +4,18 @@ import { Header } from "react-native-elements";
 import { StackNavigator } from "react-navigation";
 
 export default class About extends React.Component {
-
   render() {
     return (
       <View style={styles.container}>
-        <Text>About Screen HELLO</Text>
-        <View style= {styles.overlay}/>
+        <Text>/ˈrandəm/</Text>
+        <Text>
+          /pəːmjʊˈteɪʃ(ə)ns/ /ɒv/ /θɔːt/ /tīm/ /spās/ /(ə)n// tHə/ /ˈbädē/
+        </Text>
+        <View style={styles.overlay} />
       </View>
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -22,11 +23,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-   
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(174,186,167,0.5)',
+    backgroundColor: "rgba(174,186,167,0.5)"
   }
 });
-
