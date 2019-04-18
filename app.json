@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "sdkVersion": "32.0.0",
+    "name": "SoundMixer",
+    "slug": "soundmixer",
+    "version": "0.1.0",
+    "platforms": [
+      "android"
+    ],
+    "description": "",
+    "githubUrl": "https://github.com/ericmackay/SoundMixer/blob/master/package.json"
   }
 }
